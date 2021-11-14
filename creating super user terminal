@@ -1,0 +1,54 @@
+Last login: Tue Jul 20 21:30:30 on ttys000
+hafsatusman@Hafsys-MacBook-Pro commerce % python3 manage createsuperuser
+/usr/local/bin/python3: can't open file 'manage': [Errno 2] No such file or directory
+hafsatusman@Hafsys-MacBook-Pro commerce % python3 manage.py createsuperuser
+System check identified some issues:
+
+WARNINGS:
+auctions.Watchlist.username: (fields.W342) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
+	HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
+Username: hafusman03
+Email address: hafusman03@gmail.com
+Password: 
+Password (again): 
+Superuser created successfully.
+hafsatusman@Hafsys-MacBook-Pro commerce % 
+  [Restored Jul 22, 2021 at 1:23:18 PM]
+Last login: Thu Jul 22 13:23:17 on ttys000
+hafsatusman@Hafsys-MacBook-Pro commerce % 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

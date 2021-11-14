@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+{% block title %}New Auction{% endblock %}
+{% block body %}
+ <form enctype="multipart/form-data" action ="{% url 'index' %} " method = "POST" style="padding: 5px;">
+    {% csrf_token %}
+     <fieldset class = "form-group" style=" padding-top: 5px ; padding-bottom: 2.5px;">
+        <legend>Create New Listing</legend>
+        {{ form.as_p }}
+        <label for="bid"> Starting bid:</label> <input class = "form-control" type="text" name = "bid" id = "bid"  style=" width: 25%;">
+        <!-- value="$" -->
+        <br><br>
+        <input class = "btn btn-primary" type="reset" value="Reset">
+        <input  class = "btn btn-primary" type="submit" value="Submit">
+     </fieldset>
+ </form>
+{% endblock %}

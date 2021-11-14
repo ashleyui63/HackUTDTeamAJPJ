@@ -1,0 +1,11 @@
+body {
+    padding: 10px;
+}
+textarea,input.form-control{
+    padding: 5px;
+     width: 75%;
+}
+#compartment{
+    border: black;
+    
+}

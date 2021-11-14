@@ -1,0 +1,155 @@
+
+{% extends "auctions/layout.html" %}
+    {% block title %}Auction Info{% endblock %}
+    {% block head %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'auctions/page.css' %}"> 
+    {% endblock %}
+
+    {% block body %}
+        {% load auction_extras %}
+        {% load static %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+
+                    {{ message }}
+
+                </div>
+            {% endfor %}
+            <div class="lWrapper">
+                <div class ="headers">
+                    <h3 name = "item" id = "h-item" >{{ listing.item }} </h3>
+                    <div class="h-seller">
+                        <p name="seller" id="h-seller"> Sold by: </p>
+                        <p id="h-seller-bold" style="font-weight: bold;">{{ listing.seller.get_username }}</p>
+                    </div>
+                    <div class = "h-round">
+                        {% if not listing.closed%}
+                        <button class="h-round-active">Active</button>
+                        {% else  %}
+                        <!-- <button class="h-round-closed">Closed</button> -->
+                        <button class="h-round-closed">Sold</button>
+                        {% endif %}
+                        {% if listing in user.user_watchlist.first.watching.all %}
+                        <button class = "h-round-watchlist ">Watchlist</button>
+                        {% endif %}
+                        {% if listing.category.category is not None%}
+                        <button class = "h-round-cate">{{listing.category.category}}</button>
+                        {% endif %}
+                    </div>
+                    
+                   
+                </div>
+                {% if listing.file_path is not None  %}
+                <div class ="image">
+                    <img src="{{listing.file_path.url}}" alt="{{listing.item}}" style = "max-width: 45%;">
+                </div>
+                {% endif %}
+                <div class ="descript"> 
+                    <p name = "item" > {{ listing.descript }}</p>
+                </div>
+                <div class = "bid-info">
+                        <p name = "startBid" id="h-price" style="font-weight: bold;"> Current Price: $ {{ listing.bids_on_product.first.bid }} </p>
+                        {% if user.is_authenticated and not listing.closed %}
+                        <div class ="interest">
+                            <div class="interest-bid">
+                                <form class="bid-form"action="{% url 'bid' listing.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <!-- <label for="bid">Place Your Bid. MUST be higher than current bid</label><input class="bid-form" type="number" name="bid" placeholder="{{ bid }}"> -->
+                                    <input type="submit" value="Contact Seller" style="max-width: 25;">
+                                </form>
+                            </div>
+                        {% endif %}
+                    
+                    
+                        <!-- {% if user.is_authenticated and not listing.closed %}
+                        <div class ="interest">
+                            <div class="interest-bid">
+                                <form class="bid-form"action="{% url 'bid' listing.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <label for="bid">Place Your Bid. MUST be higher than current bid</label><input class="bid-form" type="number" name="bid" placeholder="{{ bid }}">
+                                    <input type="submit" value="Place Bid" style="max-width: 25;">
+                                </form>
+                            </div>
+                            
+                
+                            {% if listing in user.user_watchlist.first.watching.all %}
+                            <form action ="{% url 'editWatchlist' listing.id %}" method ="POST">
+                                {% csrf_token %}
+                                <input type ="submit" name ="removed" value ="Remove From Watchlist">
+                            </form> 
+                        
+                            {% else %}
+                            <form action ="{% url 'editWatchlist' listing.id %}" method ="POST">
+                                {% csrf_token %}
+                                <input type ="submit" name ="added" value ="Add to Watchlist">
+                            </form> 
+                            {% endif %}
+                        
+                        </div>
+                    {% endif %}     -->
+                </div>
+                
+
+                {% if user.is_authenticated and listing.seller == user and not listing.closed %}
+                    <!-- <div class = "close-auction">
+                        <form action="{% url 'close' listing.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" name = "close" value="Close Auction">
+                        </form>
+                    </div> -->
+                    <div class = "close-auction">
+                        <form action="{% url 'close' listing.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" name = "close" value="Take off Market">
+                        </form>
+                    </div>
+                {% endif %}
+                
+                <div class ="comments-section">
+                    <div class="recent-comments">
+                        <h2 name ="title" id="h-item"> Recent Comments </h2>
+                        
+                        <div class ="body-div">
+                            
+                            <ul class ="body-list">
+                                <!-- for loop that goes through all the comments  -->
+                                {% for comm in listing.comments_on_product.all %}
+                                <li>
+                                <div class="body-author-comment"> 
+                                        <h6><!-- {{listing.cate}} --> </h6>
+                                        <p> {{ comm.comment }}</p>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <!-- possible errors if user submits empty text box -->
+                        
+                        <div class ="user-comment">
+                            <form action="{% url 'listing' listing.id %}" method="post">
+                                {% csrf_token %}
+                                <div id="container" style="display: block;">
+                                    <div class="child"><h4 name = "comment-header">Leave a comment</h4></div>
+                                    <div class="child"><textarea name="comment-text" id="comment-text" cols="30" rows="10"></textarea></div>
+                                    <div class="child"><input type="submit" value="post comment"></div>
+                                </div>
+                            </form>
+
+                        </div>
+                        {% else %}
+                            <div class = "no-comment">
+                                <a class="no-comment-link" href="{% url 'forComment' listing.id %}"> Log in to make comment </a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+        </div>
+    {% endblock %}
+
+
+

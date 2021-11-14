@@ -1,0 +1,48 @@
+.list-group
+{
+    margin: .5%;
+    
+    /* border-bottom: 2px; */
+}
+.list-group-item
+{
+    margin-top: 10px; 
+   
+}
+.group-div
+{
+    display : flex; 
+    flex-direction: row;
+    /* margin: 10px 2%; */
+}
+.group-div > * {
+    margin: 4px 1%;
+}
+#info-header{
+    color: dodgerblue;
+}
+#c_bid, #c_bid_bold,#s_bid,#s_bid_bold{
+    display: inline-block;
+    margin: 1px ;
+    /* color: dodgerblue; */
+}
+#c_bid_bold, #s_bid_bold
+{
+    font-weight: bold;
+    
+}
+input{
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    padding: 4px 18px;
+    font-size: 6px;
+    cursor: pointer;
+    border-color: #ff9800;
+    color: orange;
+}
+input:hover {
+    background: #ff9800;
+    color: white;
+  }

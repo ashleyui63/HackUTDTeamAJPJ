@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+{% block title %}Auctions{% endblock %}
+{% block head %}
+    {% load static %}
+     <link rel="stylesheet" href="{% static 'auctions/index.css' %}"> 
+{% endblock %}
+{% block body %}
+    {% load static %}
+        <h2>{{ header }}</h2>
+        
+        <ul class = "list-group">
+            {% for listing in listings %}
+                <li class="list-group-item"  > 
+                    <div class="group-div">
+                       
+                        <div class = "group-div-image"style = "max-width: 200px">
+                            <img src="{{listing.file_path.url}}" alt="{{listing.item}}" style = "max-width: 100%;">
+                        </div>
+                        
+                        <div class="group-div-info">
+                            <h4 id = "info-header"> {{ listing.item }}</h4>
+                            <div class="bid"><p id = "c_bid_bold">Current Bid:</p><p id = c_bid style="color: green; font-size: medium;"> ${{ listing.bids_on_product.last.bid }}</p></div>
+                            <div class="bid"><p id="s_bid_bold">Starting Bid:</p><p id = s_bid style="color: gray; font-size: medium;"> ${{listing.bids_on_product.first.bid}}</p></div>
+                            <div class="info-p">
+                               <p id = "desc">{{ listing.descript }}</p>
+                               <p id = "cate" style="color: gray; font-size: small; margin-top: 10px; "> Category: {{ listing.category.category }}</p>
+                            </div>
+                            <form action="{% url 'listing' listing.id %}" method="get">
+                            {% csrf_token %}
+                                <input type="submit" value="Viem Item">
+                            </form>
+                        </div>
+                    </div>   
+                </li>
+            {% endfor %}
+        </ul>
+   
+{% endblock %}
